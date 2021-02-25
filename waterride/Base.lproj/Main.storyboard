@@ -29,7 +29,7 @@
                                 <state key="normal" title="Button"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F9w-uu-e0A">
-                                <rect key="frame" x="174" y="165" width="11" height="21"/>
+                                <rect key="frame" x="88" y="165" width="212" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -113,6 +113,9 @@
                         <outlet property="newPrice" destination="EKB-zF-6he" id="yFf-tK-afD"/>
                         <outlet property="newValue" destination="m6b-8X-BGw" id="x25-Yw-Yzf"/>
                         <outlet property="refreshButton" destination="ORs-rU-91c" id="whz-j6-dJ7"/>
+                        <outlet property="resultNum" destination="WMl-rK-V9a" id="eQL-na-Rim"/>
+                        <outlet property="resultPrice" destination="F9w-uu-e0A" id="Z93-Ul-HeP"/>
+                        <outlet property="resultValue" destination="qSx-3H-cpo" id="iPI-Ve-1UA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var refreshButton: UIButton!
+    @IBOutlet weak var resultPrice: UILabel!
+    @IBOutlet weak var resultValue: UILabel!
+    @IBOutlet weak var resultNum: UILabel!
     @IBOutlet weak var currentPrice: UITextField!
     @IBOutlet weak var currentNum: UITextField!
     @IBOutlet weak var currentValue: UILabel!
@@ -52,17 +55,38 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
-        if let removeAllSeprator = currentPrice.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "") {
-        
-            // currentNum값이 존재하다면 num 변수에 저장
-            if let price = Int(removeAllSeprator), let num = Int(currentNum.text!) {
+        let removePrice = currentPrice.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+        let removeNum = currentNum.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+
+            if let price = Int(removePrice!), let num = Int(removeNum!) {
                 
                 let beforeFormattedResult = price*num
                 //계산한 결과에 콤마 넣기
                 let result = numberFormatter.string(from: NSNumber(value: beforeFormattedResult))!
                 currentValue.text=result
+                
+                //최종 금액 계산
+                let removeOtherNum = newNum.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                let removeOtherValue = newValue.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                let removeValue = currentValue.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                
+                if let otherNum = Int(removeOtherNum!), let otherValue = Int(removeOtherValue!), let thisValue = Int(removeValue!), let thisNum = Int(removeNum!) {
+                    let beforeFormattedValue = Float(otherValue+thisValue)
+                    let beforeFormattedNum = Float(otherNum+thisNum)
+                    let temp = beforeFormattedValue/beforeFormattedNum
+                    let beforeFormattedPrice = round(temp*100)/100 //소수 둘째자리 반올림
+     
+                    let valueResult = numberFormatter.string(from: NSNumber(value: beforeFormattedValue))
+                    let numResult = numberFormatter.string(from: NSNumber(value: beforeFormattedNum))
+                    let priceResult = numberFormatter.string(from: NSNumber(value: beforeFormattedPrice))
+                    resultValue.text=valueResult
+                    resultNum.text=numResult
+                    resultPrice.text=priceResult
+        
+                
+                }
+                
             }
-        }
         
     }
     
@@ -71,18 +95,40 @@ class ViewController: UIViewController, UITextFieldDelegate{
  
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
+        numberFormatter.maximumFractionDigits = 2 //허용하는 소수점 자리수
         
-        if let removeAllSeprator = newPrice.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "") {
+        let removePrice = newPrice.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+        let removeNum = newNum.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
         
-            // currentNum값이 존재하다면 num 변수에 저장
-            if let price = Int(removeAllSeprator), let num = Int(newNum.text!) {
+            if let price = Int(removePrice!), let num = Int(removeNum!) {
                 
                 let beforeFormattedResult = price*num
                 //계산한 결과에 콤마 넣기
                 let result = numberFormatter.string(from: NSNumber(value: beforeFormattedResult))!
                 newValue.text=result
+                
+                //최종 금액 계산
+                let removeOtherNum = currentNum.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                let removeOtherValue = currentValue.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                let removeValue = newValue.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
+                
+                if let otherNum = Int(removeOtherNum!), let otherValue = Int(removeOtherValue!), let thisValue = Int(removeValue!), let thisNum = Int(removeNum!) {
+                    let beforeFormattedValue = Float(otherValue+thisValue)
+                    let beforeFormattedNum = Float(otherNum+thisNum)
+                    let temp = beforeFormattedValue/beforeFormattedNum
+                    let beforeFormattedPrice = round(temp*100)/100 //소수 둘째자리 반올림
+     
+                    let valueResult = numberFormatter.string(from: NSNumber(value: beforeFormattedValue))
+                    let numResult = numberFormatter.string(from: NSNumber(value: beforeFormattedNum))
+                    let priceResult = numberFormatter.string(from: NSNumber(value: beforeFormattedPrice))
+                    resultValue.text=valueResult
+                    resultNum.text=numResult
+                    resultPrice.text=priceResult
+        
+                    
+                }
+                
             }
-        }
         
     }
 
@@ -113,6 +159,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     }
                 } else { //새로 입력된 값이 숫자로 이루어진 문자열이 아닌 경우(백스페이스, 문자열..)
                     if newString == "" { //백스페이스의 경우 맨 마지막 문자열 자르고 재포맷 과정 거침
+                        
                         let lastIndex = beforeString.index(beforeString.endIndex, offsetBy: -1)
                         beforeString = String(beforeString[..<lastIndex]) //..<는 인덱스 미만, 잘린 데이터의 타입은 substring->string 필요
                         
@@ -145,6 +192,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     }
                 } else { //새로 입력된 값이 숫자로 이루어진 문자열이 아닌 경우(백스페이스, 문자열..)
                     if newString == "" { //백스페이스의 경우 맨 마지막 문자열 자르고 재포맷 과정 거침
+                        
                         let lastIndex = beforeString.index(beforeString.endIndex, offsetBy: -1)
                         beforeString = String(beforeString[..<lastIndex]) //..<는 인덱스 미만, 잘린 데이터의 타입은 substring->string 필요
                         
@@ -177,6 +225,12 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     }
                 } else { //새로 입력된 값이 숫자로 이루어진 문자열이 아닌 경우(백스페이스, 문자열..)
                     if newString == "" { //백스페이스의 경우 맨 마지막 문자열 자르고 재포맷 과정 거침
+                        
+                        /* 현재 커서 위치 가져오기
+                        let textRange = newPrice.selectedTextRange!
+                        let offset = newPrice.offset(from: newPrice.beginningOfDocument, to: textRange.start)
+                        print(offset)
+                        */
                         let lastIndex = beforeString.index(beforeString.endIndex, offsetBy: -1)
                         beforeString = String(beforeString[..<lastIndex]) //..<는 인덱스 미만, 잘린 데이터의 타입은 substring->string 필요
                         
