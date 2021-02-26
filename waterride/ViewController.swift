@@ -47,6 +47,10 @@ class ViewController: UIViewController, UITextFieldDelegate{
         self.newPrice.placeholder = "추가 평균 단가"
         self.newNum.placeholder = "추가 수량"
         self.newValue.text = "추가 금액"
+        currentPrice.font=UIFont(name: currentPrice.font!.fontName, size: 12)
+        currentNum.font=UIFont(name: currentNum.font!.fontName, size: 12)
+        newPrice.font=UIFont(name: newPrice.font!.fontName, size: 12)
+        newNum.font=UIFont(name: newNum.font!.fontName, size: 12)
     }
     
     // 현재 보유 금액 계산
