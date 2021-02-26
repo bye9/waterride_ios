@@ -13,4 +13,4 @@
 - 동적 계산 로직 구현
 
 ## 💻프로젝트 데모
-![그림1](https://user-images.githubusercontent.com/54879572/109278344-c5c04000-785b-11eb-873e-c156e65a4be1.gif)
+![ezgif-4-745447707f9f](https://user-images.githubusercontent.com/54879572/109279358-ff457b00-785c-11eb-834a-a2fbd0ffb61f.gif)
