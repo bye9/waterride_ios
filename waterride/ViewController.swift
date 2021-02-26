@@ -74,7 +74,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
         let removePrice = currentPrice.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
         let removeNum = currentNum.text?.replacingOccurrences(of: numberFormatter.groupingSeparator, with: "")
 
-            if let price = Int(removePrice!), let num = Int(removeNum!) {
+        if let price = Int(removePrice!), let num = Int(removeNum!) {
                 
                 let beforeFormattedResult = price*num
                 //계산한 결과에 콤마 넣기
@@ -152,7 +152,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString newString: String) -> Bool {
         //replacementString: 방금 입력된 문자 하나, 붙여넣기라면 문자열 전체
         //텍스트가 바뀌어야 한다면 true, 아니면 false
-        //해당 메소드 내에서 currentPrice.text는 입력되기 전의 문자열
+        //해당 메소드 내에서 textField.text는 입력되기 전의 문자열
         
         // NumberFormatter 객체의 numberStyle을 .decimal로 설정
         let numberFormatter = NumberFormatter()
@@ -171,7 +171,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                     if let formattedNumber = numberFormatter.number(from: beforeString), let formattedString = numberFormatter.string(from: formattedNumber) {
                         currentPrice.text = formattedString
                         currentPrice.sendActions(for: .editingChanged)
-                        return false
+                        return false //텍스트 필드 값을 임의로 바꿔주었기 때문에
                     }
                 } else { //새로 입력된 값이 숫자로 이루어진 문자열이 아닌 경우(백스페이스, 문자열..)
                     if newString == "" { //백스페이스의 경우 맨 마지막 문자열 자르고 재포맷 과정 거침
@@ -181,7 +181,7 @@ class ViewController: UIViewController, UITextFieldDelegate{
                         
                         if let formattedNumber = numberFormatter.number(from: beforeString), let formattedString = numberFormatter.string(from: formattedNumber) {
                             currentPrice.text = formattedString
-                            currentPrice.sendActions(for: .editingChanged)
+                            currentPrice.sendActions(for: .editingChanged) //명시된 이벤트와 관련된 action메소드 호출->백스페이스했을 때 다시 계산
                             return false
                         
                         }
