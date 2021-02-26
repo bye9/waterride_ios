@@ -53,6 +53,18 @@ class ViewController: UIViewController, UITextFieldDelegate{
         newNum.font=UIFont(name: newNum.font!.fontName, size: 12)
     }
     
+    @IBAction func resetClick(_ sender: Any) {
+        
+        resultValue.text="최종 금액"
+        resultNum.text="최종 수량"
+        resultPrice.text="0"
+        currentPrice.text=""
+        currentNum.text=""
+        currentValue.text="보유 금액"
+        newPrice.text=""
+        newNum.text=""
+        newValue.text="추가 금액"
+    }
     // 현재 보유 금액 계산
     @objc func calculateCurrent(_sender:Any?) {
         
